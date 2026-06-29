@@ -8,7 +8,7 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className="w-full h-screen bg-[#0D1321] text-white p-8 overflow-hidden">
+    <main className="w-full h-screen bg-[#0D1321] text-white p-8 overflow-hidden ">
       <div className="w-full h-full flex flex-row gap-25">
         <section className="w-[50%] h-full flex flex-col justify-start items-start pl-4">
           <div className="">
