@@ -2,7 +2,7 @@
 
 import AuthInput from '@/src/components/shared/Auth-UI/AuthInput/AuthInput';
 import useLogin from '@/src/hooks/auth/useLogin';
-import { CheckCircle2, Lock, Mail, User, UserPlus } from 'lucide-react';
+import { Check, CheckCircle2, Loader2, Lock, Mail, User, UserPlus } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useState } from 'react'
@@ -25,12 +25,12 @@ export default function LoginForm() {
 const isSignIn = pathname === "/login";
 const isSignUp = pathname === "/register";
 return (
-  <div className="w-full max-w-xl flex flex-col gap-8 px-4 sm:px-0">
-    <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#a3df44] text-center sm:text-left">
+  <>
+    <h1 className=" mb-20 text-xl sm:text-2xl md:text-3xl font-bold text-[#a3df44] text-center sm:text-left">
       Continue your learning journey with QuizWiz!
     </h1>
 
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid grid-cols-2 gap-4 mb-10">
      <Link
   href="/login" 
   className={`flex flex-col items-center justify-center gap-2 p-4 sm:p-6 rounded-2xl border-2 transition-all duration-200
@@ -40,7 +40,6 @@ return (
   <span className="font-semibold text-white text-sm sm:text-base">Sign in</span>
 </Link>
 
-{/* تابس الـ Sign Up */}
 <Link
   href="/register" 
   className={`flex flex-col items-center justify-center gap-2 p-4 sm:p-6 rounded-2xl border-2 transition-all duration-200
@@ -51,7 +50,7 @@ return (
 </Link>
     </div>
 
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6 w-full">
       <AuthInput
         label="Registered email address"
         icon={Mail}
@@ -90,8 +89,19 @@ return (
           disabled={isLoading || isSuccess}
           className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[#f4f5f7] hover:bg-white text-black font-bold py-3 px-8 rounded-xl transition-all shadow-md active:scale-95 disabled:opacity-50 disabled:pointer-events-none"
         >
-          <span>{activeTab === "signin" ? "Sign In" : "Sign Up"}</span>
-          <CheckCircle2 className="w-5 h-5 fill-black text-[#f4f5f7]" />
+        {isLoading ? (
+  <>
+    <Loader2 className="w-5 h-5 animate-spin" />
+    Signing In...
+  </>
+) : isSuccess ? (
+  <>
+    <Check className="w-5 h-5 text-green-600" />
+    Login Successful
+  </>
+) : (
+  "Sign In"
+)}
         </button>
 
         <div className="text-sm text-slate-400 flex items-center justify-center sm:justify-start gap-1 flex-wrap text-center">
@@ -108,6 +118,6 @@ return (
         </div>
       </div>
     </form>
-  </div>
+    </>
 );
 }
