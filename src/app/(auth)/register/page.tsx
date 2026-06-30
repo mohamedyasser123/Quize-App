@@ -20,7 +20,6 @@ const isSignUp = pathname === "/register";
     </h1>
 
   <div className="grid grid-cols-2 gap-4">
-        {/* Sign In Tab (بينقلك لصفحة اللوجين المنفصلة) */}
        <Link
   href="/login" 
   className={`flex flex-col items-center justify-center gap-2 p-4 sm:p-6 rounded-2xl border-2 transition-all duration-200
@@ -30,7 +29,6 @@ const isSignUp = pathname === "/register";
   <span className="font-semibold text-white text-sm sm:text-base">Sign in</span>
 </Link>
 
-{/* تابس الـ Sign Up */}
 <Link
   href="/register" 
   className={`flex flex-col items-center justify-center gap-2 p-4 sm:p-6 rounded-2xl border-2 transition-all duration-200
@@ -84,7 +82,6 @@ const isSignUp = pathname === "/register";
         })}
       />
 
-      {/* Role Input (Dropdown / Select) */}
       <div className="w-full flex flex-col gap-2 relative">
         <label className="text-sm font-medium text-slate-200">Your role</label>
         <div className="relative flex items-center">
@@ -101,7 +98,6 @@ const isSignUp = pathname === "/register";
            <><option value="Student">Student</option>
 <option value="Instructor">Instructor</option></> 
           </select>
-          {/* سهم الـ Dropdown الموضح في الصورة */}
           <div className="absolute right-4 text-slate-400 pointer-events-none">
             <ArrowDown className="w-4 h-4" />
           </div>
@@ -109,7 +105,6 @@ const isSignUp = pathname === "/register";
         {errors.role && <span className="text-xs text-red-500">{errors.role.message}</span>}
       </div>
 
-      {/* Password Input */}
       <AuthInput
         label="Password"
         icon={Lock}
@@ -126,7 +121,6 @@ const isSignUp = pathname === "/register";
         })}
       />
 
-      {/* Submit Button */}
       <div className="mt-2 w-full flex justify-start">
         <button
           type="submit"
