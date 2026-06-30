@@ -1,13 +1,16 @@
 "use client";
 
+import { useAuth } from "@/src/context/AuthContext/AuthContext";
+import { loginApi } from "@/src/services/auth";
 import { LoginFormData } from "@/src/types/auth/login-type";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 export default function useLogin() {
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-
+  const { login } = useAuth();
   const {
     register,
     handleSubmit,
@@ -20,18 +23,18 @@ export default function useLogin() {
     },
   });
 
-  const onSubmit = async (data: LoginFormData) => {
+ const onSubmit = async (data: LoginFormData) => {
     try {
       setIsLoading(true);
 
-      console.log("Login Data:", data);
+      const response = await loginApi(data);
 
-      // هنا هتربط الـ API بتاعك لما يجهز:
-      // await authService.login(data);
 
+       localStorage.setItem("token", response.token);
+       toast.success(response.message);
+login(response.token);
       setIsSuccess(true);
     } catch (error) {
-      console.error(error);
     } finally {
       setIsLoading(false);
     }
