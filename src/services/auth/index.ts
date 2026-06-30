@@ -5,4 +5,4 @@ export const loginApi = async (payload: LoginFormData) => {
   const { data } = await axiosInstance.post("/api/auth/login", payload);
 
   return data;
-};
+}
