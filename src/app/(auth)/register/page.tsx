@@ -15,11 +15,11 @@ const isSignUp = pathname === "/register";
   const { register, handleSubmit, errors, isLoading,isSuccess, onSubmit } = useSignUp();
  return (
   <>
-    <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#a3df44] text-center sm:text-left">
+    <h1 className=" mb-20 text-xl sm:text-2xl md:text-3xl font-bold text-[#a3df44] text-center sm:text-left">
       Create your account and start using QuizWiz!
     </h1>
 
-  <div className="grid grid-cols-2 gap-4">
+  <div className="grid grid-cols-2 gap-4 mb-10">
        <Link
   href="/login" 
   className={`flex flex-col items-center justify-center gap-2 p-4 sm:p-6 rounded-2xl border-2 transition-all duration-200
