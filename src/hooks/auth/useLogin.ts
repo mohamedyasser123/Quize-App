@@ -6,6 +6,7 @@ import { LoginFormData } from "@/src/types/auth/login-type";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import Cookies from "js-cookie";
 
 export default function useLogin() {
   const [isLoading, setIsLoading] = useState(false);
@@ -30,7 +31,13 @@ export default function useLogin() {
       const response = await loginApi(data);
 
 
-       localStorage.setItem("token", response.token);
+       Cookies.set("accessToken", response.data.accessToken, {
+  expires: 7,
+});
+
+Cookies.set("refreshToken", response.data.refreshToken, {
+  expires: 30,
+});
        toast.success(response.message);
 login(response.token);
       setIsSuccess(true);
