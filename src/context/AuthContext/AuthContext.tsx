@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
+import Cookies from "js-cookie";
 
 interface AuthContextType {
   token: string | null;
@@ -26,15 +27,16 @@ export function AuthProvider({
     }
   }, []);
 
-  const login = (newToken: string) => {
-    localStorage.setItem("token", newToken);
-    setToken(newToken);
-  };
+ const login = (token: string) => {
+  Cookies.set("accessToken", token);
+  setToken(token);
+};
 
-  const logout = () => {
-    localStorage.removeItem("token");
-    setToken(null);
-  };
+const logout = () => {
+  Cookies.remove("accessToken");
+  Cookies.remove("refreshToken");
+  setToken(null);
+};
 
   return (
     <AuthContext.Provider
