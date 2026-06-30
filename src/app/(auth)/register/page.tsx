@@ -2,7 +2,7 @@
 
 import AuthInput from '@/src/components/shared/Auth-UI/AuthInput/AuthInput';
 import useSignUp from '@/src/hooks/auth/useRegister';
-import { ArrowDown, CheckCircle2, Contact2, Lock, Mail, User, UserPlus } from 'lucide-react';
+import { ArrowDown, BriefcaseBusiness, CheckCircle2, Contact2, Lock, Mail, User, UserPlus } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -20,7 +20,6 @@ const isSignUp = pathname === "/register";
     </h1>
 
   <div className="grid grid-cols-2 gap-4">
-        {/* Sign In Tab (بينقلك لصفحة اللوجين المنفصلة) */}
        <Link
   href="/login" 
   className={`flex flex-col items-center justify-center gap-2 p-4 sm:p-6 rounded-2xl border-2 transition-all duration-200
@@ -30,7 +29,6 @@ const isSignUp = pathname === "/register";
   <span className="font-semibold text-white text-sm sm:text-base">Sign in</span>
 </Link>
 
-{/* تابس الـ Sign Up */}
 <Link
   href="/register" 
   className={`flex flex-col items-center justify-center gap-2 p-4 sm:p-6 rounded-2xl border-2 transition-all duration-200
@@ -84,12 +82,11 @@ const isSignUp = pathname === "/register";
         })}
       />
 
-      {/* Role Input (Dropdown / Select) */}
       <div className="w-full flex flex-col gap-2 relative">
         <label className="text-sm font-medium text-slate-200">Your role</label>
         <div className="relative flex items-center">
           <div className="absolute left-4 text-slate-400 pointer-events-none">
-            <Mail className="w-5 h-5" /> {/* نفس الأيقونة المستخدمة في الصورة */}
+            <BriefcaseBusiness  className="w-5 h-5" /> 
           </div>
           <select
             disabled={isLoading}
@@ -98,10 +95,9 @@ const isSignUp = pathname === "/register";
               ${errors.role ? "border-red-500" : "border-slate-700 focus:border-[#a3df44]"}`}
           >
             <option value="" disabled className="text-slate-500">Choose your role</option>
-            <option value="student" className="bg-[#0b1120]">Student</option>
-            <option value="teacher" className="bg-[#0b1120]">Teacher</option>
+           <><option value="Student">Student</option>
+<option value="Instructor">Instructor</option></> 
           </select>
-          {/* سهم الـ Dropdown الموضح في الصورة */}
           <div className="absolute right-4 text-slate-400 pointer-events-none">
             <ArrowDown className="w-4 h-4" />
           </div>
@@ -109,7 +105,6 @@ const isSignUp = pathname === "/register";
         {errors.role && <span className="text-xs text-red-500">{errors.role.message}</span>}
       </div>
 
-      {/* Password Input */}
       <AuthInput
         label="Password"
         icon={Lock}
@@ -126,7 +121,6 @@ const isSignUp = pathname === "/register";
         })}
       />
 
-      {/* Submit Button */}
       <div className="mt-2 w-full flex justify-start">
         <button
           type="submit"
