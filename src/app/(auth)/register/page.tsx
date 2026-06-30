@@ -2,7 +2,7 @@
 
 import AuthInput from '@/src/components/shared/Auth-UI/AuthInput/AuthInput';
 import useSignUp from '@/src/hooks/auth/useRegister';
-import { ArrowDown, BriefcaseBusiness, CheckCircle2, Contact2, Lock, Mail, User, UserPlus } from 'lucide-react';
+import { ArrowDown, BriefcaseBusiness, Check, CheckCircle2, Contact2, Loader2, Lock, Mail, User, UserPlus } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -12,9 +12,9 @@ export default function RegisterForm() {
 const isSignIn = pathname === "/login";
 const isSignUp = pathname === "/register";
   
-  const { register, handleSubmit, errors, isLoading, onSubmit } = useSignUp();
+  const { register, handleSubmit, errors, isLoading,isSuccess, onSubmit } = useSignUp();
  return (
-  <div className="w-full max-w-xl flex flex-col gap-8 px-4 sm:px-0">
+  <>
     <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#a3df44] text-center sm:text-left">
       Create your account and start using QuizWiz!
     </h1>
@@ -39,10 +39,8 @@ const isSignUp = pathname === "/register";
 </Link>
       </div>
 
-    {/* Form */}
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6 w-full">
       
-      {/* First Name & Last Name Row */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <AuthInput
           label="Your first name"
@@ -65,7 +63,6 @@ const isSignUp = pathname === "/register";
         />
       </div>
 
-      {/* Email Input */}
       <AuthInput
         label="Your email address"
         icon={Mail}
@@ -121,17 +118,26 @@ const isSignUp = pathname === "/register";
         })}
       />
 
-      <div className="mt-2 w-full flex justify-start">
         <button
           type="submit"
-          disabled={isLoading}
-          className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[#f4f5f7] hover:bg-white text-black font-bold py-3 px-8 rounded-xl transition-all shadow-md active:scale-95 disabled:opacity-50"
-        >
-          <span>Sign Up</span>
-          <CheckCircle2 className="w-5 h-5 fill-black text-[#f4f5f7]" />
+          disabled={isLoading||isSuccess}
+            className="self-start px-10 py-3 bg-white text-[#0D1321] font-bold rounded-lg hover:bg-gray-200 transition-colors shadow-lg disabled:bg-gray-400 disabled:text-gray-700 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer">
+        
+         {isLoading ? (
+            <>
+              <Loader2 className="w-5 h-5 animate-spin" />
+              Creating Account...
+            </>
+          ) : isSuccess ? (
+            <>
+              <Check className="w-5 h-5 text-green-600" />
+               Account Created
+            </>
+          ) : (
+            "Sign Up"
+          )}
         </button>
-      </div>
     </form>
-  </div>
+    </>
 );
 }
