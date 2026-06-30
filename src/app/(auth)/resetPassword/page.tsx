@@ -90,7 +90,8 @@ export default function ResetPasswordForm() {
         <button
           type="submit"
           disabled={isLoading || isSuccess}
-          className="px-10 py-3 bg-white text-[#0D1321] font-bold rounded-2xl hover:bg-gray-200 transition-colors shadow-lg disabled:bg-gray-400 disabled:text-gray-700 disabled:cursor-not-allowed flex items-center justify-center gap-2 min-w-[140px]">
+            className="self-start px-10 py-3 bg-white text-[#0D1321] font-bold rounded-lg hover:bg-gray-200 transition-colors shadow-lg disabled:bg-gray-400 disabled:text-gray-700 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer">
+
           {isLoading ? (
             <>
               <Loader2 className="w-5 h-5 animate-spin" />

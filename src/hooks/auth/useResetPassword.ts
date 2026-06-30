@@ -1,5 +1,6 @@
 "use client";
 
+import { resetPasswordApi } from "@/src/services/auth";
 import { ResetPasswordFormData } from "@/src/types/auth/resetPassword-type";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -22,21 +23,20 @@ export default function useResetPassword() {
     },
   });
 
-  const onSubmit = async (data: ResetPasswordFormData) => {
-    try {
-      setIsLoading(true);
+const onSubmit = async (data: ResetPasswordFormData) => {
+  try {
+    setIsSuccess(false);
+    setIsLoading(true);
 
-      console.log(data);
+    await resetPasswordApi(data);
 
-      // await authService.resetPassword(data);
-
-      setIsSuccess(true);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    setIsSuccess(true);
+  } catch (error) {
+    console.error(error);
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   return {
     register,
