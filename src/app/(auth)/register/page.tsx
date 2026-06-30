@@ -2,7 +2,7 @@
 
 import AuthInput from '@/src/components/shared/Auth-UI/AuthInput/AuthInput';
 import useSignUp from '@/src/hooks/auth/useRegister';
-import { ArrowDown, CheckCircle2, Contact2, Lock, Mail, User, UserPlus } from 'lucide-react';
+import { ArrowDown, BriefcaseBusiness, CheckCircle2, Contact2, Lock, Mail, User, UserPlus } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -89,7 +89,7 @@ const isSignUp = pathname === "/register";
         <label className="text-sm font-medium text-slate-200">Your role</label>
         <div className="relative flex items-center">
           <div className="absolute left-4 text-slate-400 pointer-events-none">
-            <Mail className="w-5 h-5" /> {/* نفس الأيقونة المستخدمة في الصورة */}
+            <BriefcaseBusiness  className="w-5 h-5" /> 
           </div>
           <select
             disabled={isLoading}
@@ -98,8 +98,8 @@ const isSignUp = pathname === "/register";
               ${errors.role ? "border-red-500" : "border-slate-700 focus:border-[#a3df44]"}`}
           >
             <option value="" disabled className="text-slate-500">Choose your role</option>
-            <option value="student" className="bg-[#0b1120]">Student</option>
-            <option value="teacher" className="bg-[#0b1120]">Teacher</option>
+           <><option value="Student">Student</option>
+<option value="Instructor">Instructor</option></> 
           </select>
           {/* سهم الـ Dropdown الموضح في الصورة */}
           <div className="absolute right-4 text-slate-400 pointer-events-none">
