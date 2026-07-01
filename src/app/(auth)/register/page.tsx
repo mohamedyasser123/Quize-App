@@ -106,6 +106,7 @@ const isSignUp = pathname === "/register";
         label="Password"
         icon={Lock}
         type="password"
+        isPassword
         placeholder="Type your password"
         disabled={isLoading}
         error={errors.password?.message}

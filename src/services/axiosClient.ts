@@ -1,22 +1,21 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 
 const axiosInstance = axios.create({
-  baseURL:"https://upskilling-egypt.com:3005",
+  baseURL: "https://upskilling-egypt.com:3005",
   headers: {
     "Content-Type": "application/json",
   },
-  timeout: 10000,
+  timeout: 5000,
 });
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    if (typeof window !== "undefined") {
-      const token = localStorage.getItem("token");
+    const token = Cookies.get("accessToken");
 
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-      }
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
     }
 
     return config;
@@ -39,10 +38,12 @@ axiosInstance.interceptors.response.use(
         break;
 
       case 401:
-        if (typeof window !== "undefined" && localStorage.getItem("token")) {
+        if (Cookies.get("accessToken")) {
           toast.error("Session expired, please login again.");
 
-          localStorage.removeItem("token");
+          Cookies.remove("accessToken");
+          Cookies.remove("refreshToken");
+          Cookies.remove("user");
 
           setTimeout(() => {
             window.location.href = "/login";
@@ -66,6 +67,7 @@ axiosInstance.interceptors.response.use(
 
       default:
         toast.error(message);
+        break;
     }
 
     return Promise.reject(error);
