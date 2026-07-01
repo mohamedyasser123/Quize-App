@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 
 import { changePasswordApi } from "@/src/services/auth";
 import { ChangePasswordFormData } from "@/src/types/auth/changePassword-type";
+import toast from "react-hot-toast";
 
 export default function useChangePassword() {
   const router = useRouter();
@@ -31,7 +32,8 @@ export default function useChangePassword() {
       setIsSuccess(false);
       setIsLoading(true);
 
-      await changePasswordApi(data);
+      const response = await changePasswordApi(data);
+      toast.success(response.message)
 
       setIsSuccess(true);
 

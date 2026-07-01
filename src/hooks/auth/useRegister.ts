@@ -2,6 +2,7 @@
 
 import { registerApi } from "@/src/services/auth";
 import { SignUpFormData } from "@/src/types/auth/register-type";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -9,6 +10,8 @@ import toast from "react-hot-toast";
 export default function useSignUp() {
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+    const router = useRouter();
+
 
   const {
     register,
@@ -34,6 +37,8 @@ export default function useSignUp() {
     toast.success(response.message);
 
     setIsSuccess(true);
+    router.push("/login");
+
   } catch (error) {
   } finally {
     setIsLoading(false);
