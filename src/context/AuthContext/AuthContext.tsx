@@ -3,10 +3,19 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 
+interface User {
+  _id: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  role: "Instructor" | "Student";
+}
+
 interface AuthContextType {
   token: string | null;
+  user: User | null;
   isAuthenticated: boolean;
-  login: (token: string) => void;
+  login: (token: string, user: User) => void;
   logout: () => void;
 }
 
@@ -18,30 +27,41 @@ export function AuthProvider({
   children: React.ReactNode;
 }) {
   const [token, setToken] = useState<string | null>(null);
-
+const [user, setUser] = useState<User | null>(null);
   useEffect(() => {
-    const storedToken = localStorage.getItem("token");
+  const storedToken = Cookies.get("accessToken");
+  const storedUser = Cookies.get("user");
 
-    if (storedToken) {
-      setToken(storedToken);
-    }
-  }, []);
+  if (storedToken) {
+    setToken(storedToken);
+  }
 
- const login = (token: string) => {
+  if (storedUser) {
+    setUser(JSON.parse(storedUser));
+  }
+}, []);
+
+const login = (token: string, user: User) => {
   Cookies.set("accessToken", token);
-  setToken(token);
-};
+  Cookies.set("user", JSON.stringify(user));
 
+  setToken(token);
+  setUser(user);
+};
 const logout = () => {
   Cookies.remove("accessToken");
   Cookies.remove("refreshToken");
+  Cookies.remove("user");
+
   setToken(null);
+  setUser(null);
 };
 
   return (
     <AuthContext.Provider
       value={{
         token,
+        user,
         isAuthenticated: !!token,
         login,
         logout,

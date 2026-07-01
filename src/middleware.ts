@@ -19,19 +19,19 @@ export function middleware(request: NextRequest) {
 
   const user = jwtDecode<TokenPayload>(token);
 
-  if (
-    pathname.startsWith("/dashboard") &&
-    user.role !== "Instructor"
-  ) {
-    return NextResponse.redirect(new URL("/unauthorized", request.url));
-  }
+ if (
+  pathname.startsWith("/instructor") &&
+  user.role !== "Instructor"
+) {
+  return NextResponse.redirect(new URL("/learner/dashboard", request.url));
+}
 
-  if (
-    pathname.startsWith("/quiz") &&
-    user.role !== "Student"
-  ) {
-    return NextResponse.redirect(new URL("/unauthorized", request.url));
-  }
+if (
+  pathname.startsWith("/learner") &&
+  user.role !== "Student"
+) {
+  return NextResponse.redirect(new URL("/instructor/dashboard", request.url));
+}
 
   return NextResponse.next();
 }
