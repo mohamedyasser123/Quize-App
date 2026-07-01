@@ -5,6 +5,7 @@ import { ForgetPasswordFormData } from "@/src/types/auth/forgetPassword-type";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 export default function useForgetPassword() {
   const router = useRouter();
@@ -27,7 +28,8 @@ export default function useForgetPassword() {
       setIsSuccess(false);
       setIsLoading(true);
 
-      await forgetPasswordApi(data);
+     const response =  await forgetPasswordApi(data);
+     toast.success(response.message)
 
       setIsSuccess(true);
 
