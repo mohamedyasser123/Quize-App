@@ -3,6 +3,7 @@ import axiosInstance from "../axiosClient";
 import { SignUpFormData } from "@/src/types/auth/register-type";
 import { ResetPasswordFormData } from "@/src/types/auth/resetPassword-type";
 import { ForgetPasswordFormData } from "@/src/types/auth/forgetPassword-type";
+import { ChangePasswordFormData } from "@/src/types/auth/changePassword-type";
 export const loginApi = async (payload: LoginFormData) => {
   const { data } = await axiosInstance.post("/api/auth/login", payload);
 
@@ -53,6 +54,22 @@ export const forgetPasswordApi = async (
 
   const { data } = await axiosInstance.post(
     "/api/auth/forgot-password",
+    body
+  );
+
+  return data;
+};
+
+export const changePasswordApi = async (
+  payload: ChangePasswordFormData
+) => {
+  const body = {
+    password: payload.password,
+    password_new: payload.passwordNew,
+  };
+
+  const { data } = await axiosInstance.post(
+    "/api/auth/change-password",
     body
   );
 
