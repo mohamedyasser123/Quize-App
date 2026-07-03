@@ -1,4 +1,3 @@
-import RoleGuard from "@/src/components/guards/RoleGuard";
 import Navbar from "@/src/components/layout/Navbar";
 import Sidebar from "@/src/components/layout/Sidebar";
 
@@ -8,7 +7,6 @@ export default function StudentLayout({
   children: React.ReactNode;
 }) {
   return (
-    <RoleGuard allowedRole="Student">
       <div className="min-h-screen bg-slate-100">
         <Navbar />
 
@@ -18,6 +16,5 @@ export default function StudentLayout({
           <main className="flex-1 p-6">{children}</main>
         </div>
       </div>
-    </RoleGuard>
   );
 }

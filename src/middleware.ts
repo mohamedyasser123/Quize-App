@@ -11,31 +11,40 @@ interface TokenPayload {
 
 export function middleware(request: NextRequest) {
   const token = request.cookies.get("accessToken")?.value;
-  const { pathname } = request.nextUrl;
 
   if (!token) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  const user = jwtDecode<TokenPayload>(token);
+  try {
+    const user = jwtDecode<TokenPayload>(token);
+    const { pathname } = request.nextUrl;
 
- if (
+   if (
   pathname.startsWith("/instructor") &&
   user.role !== "Instructor"
 ) {
-  return NextResponse.redirect(new URL("/learner/dashboard", request.url));
+  return NextResponse.redirect(new URL("/login", request.url));
 }
 
 if (
   pathname.startsWith("/learner") &&
   user.role !== "Student"
 ) {
-  return NextResponse.redirect(new URL("/instructor/dashboard", request.url));
+  return NextResponse.redirect(new URL("/login", request.url));
 }
 
-  return NextResponse.next();
+    return NextResponse.next();
+  } catch {
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
 }
+
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/quiz/:path*"],
+  matcher: [
+    "/instructor/:path*",
+    "/learner/:path*",
+    "/change-password",
+  ],
 };
