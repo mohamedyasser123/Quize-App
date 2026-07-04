@@ -3,7 +3,7 @@
 import { getIncomingQuizzesApi } from "@/src/services/instractor";
 import { useEffect, useState } from "react";
 
-export default function useIncomingQuizzes() {
+export default function useinComingQuizzes() {
   const [quizzes, setQuizzes] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -13,8 +13,7 @@ export default function useIncomingQuizzes() {
         setIsLoading(true);
 
         const response = await getIncomingQuizzesApi();
-
-        setQuizzes(response.data);
+        setQuizzes(response);
       } catch (error) {
         console.error(error);
       } finally {
