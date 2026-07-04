@@ -1,5 +1,5 @@
 import Navbar from "@/src/components/layout/Navbar";
-import Sidebar from "@/src/components/layout/Sidebar";
+import { Sidebar } from "lucide-react";
 
 export default function StudentLayout({
   children,
