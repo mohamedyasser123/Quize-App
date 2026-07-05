@@ -20,7 +20,10 @@ export default function Sidebar() {
   const pathname = usePathname();
 const instructorItems = [
     { name: "Dashboard", href: "/instructor/dashboard", icon: LayoutDashboard },
+        { name: "Groups", href: "/instructor/groups", icon: FileText }, 
     { name: "Quizzes", href: "/instructor/quizzes", icon: FileText }, 
+    { name: "Questions", href: "/instructor/questions", icon: FileText }, 
+
     { name: "Students", href: "/instructor/students", icon: Users },
     { name: "Results", href: "/instructor/results", icon: GraduationCap },
   ];
