@@ -8,7 +8,7 @@ import useinComingQuizzes from "@/src/hooks/instractor/quiz/useInComingQuizzes";
 
 
 export default function InstructorDashboard() {
-  const { topStudents = [], isLoading } = useStudents();
+const { students: topStudents, isLoading } = useStudents(true);
 const { quizzes = [] } = useinComingQuizzes();
 
 
