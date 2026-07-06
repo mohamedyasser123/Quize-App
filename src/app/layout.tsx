@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
-import { Nunito } from "next/font/google"; 
+import { Nunito, Geist } from "next/font/google"; 
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import AppProvider from "../providers/AppProvider";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -23,7 +26,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${nunito.variable} h-full antialiased`}
+      className={cn("h-full", "antialiased", nunito.variable, "font-sans", geist.variable)}
     >
       <body className="min-h-full flex flex-col font-sans">
           <AppProvider>

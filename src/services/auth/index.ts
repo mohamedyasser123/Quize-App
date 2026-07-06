@@ -75,3 +75,7 @@ export const changePasswordApi = async (
 
   return data;
 };
+export const logoutApi = async () => {
+  const response = await axiosInstance.get("/api/auth/logout");
+  return response.data;
+};

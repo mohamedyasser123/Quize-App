@@ -2,7 +2,8 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
-
+import { logoutApi } from "@/src/services/auth";
+import toast from "react-hot-toast";
 interface User {
   _id: string;
   first_name: string;
@@ -16,7 +17,7 @@ interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
   login: (token: string, user: User) => void;
-  logout: () => void;
+  logout: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -48,13 +49,21 @@ const login = (token: string, user: User) => {
   setToken(token);
   setUser(user);
 };
-const logout = () => {
-  Cookies.remove("accessToken");
-  Cookies.remove("refreshToken");
-  Cookies.remove("user");
+const logout = async () => {
+  try {
+   const response = await logoutApi();
+    toast.success(response.message);
 
-  setToken(null);
-  setUser(null);
+  } catch (error) {
+    console.error(error);
+  } finally {
+    Cookies.remove("accessToken");
+    Cookies.remove("refreshToken");
+    Cookies.remove("user");
+
+    setToken(null);
+    setUser(null);
+  }
 };
 
   return (
