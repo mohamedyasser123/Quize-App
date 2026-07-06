@@ -1,13 +1,12 @@
 "use client";
 
-import { getStudentsApi } from "@/src/services/instractor/student-api";
+import { getStudentsApi } from "@/src/services/student/student-api";
 import { Student } from "@/src/types/instractor/students/student-type";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
-export default function useStudents() {
+export default function useStudents(topOnly = false) {
   const [students, setStudents] = useState<Student[]>([]);
-  const [topStudents, setTopStudents] = useState<Student[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const getStudents = async () => {
@@ -16,13 +15,15 @@ export default function useStudents() {
 
       const response = await getStudentsApi();
 
-      setStudents(response);
+      if (topOnly) {
+        const topFive = [...response]
+          .sort((a, b) => b.avg_score - a.avg_score)
+          .slice(0, 5);
 
-      const topFive = [...response]
-        .sort((a, b) => b.avg_score - a.avg_score)
-        .slice(0, 5);
-
-      setTopStudents(topFive);
+        setStudents(topFive);
+      } else {
+        setStudents(response);
+      }
     } catch {
       toast.error("Failed to load students");
     } finally {
@@ -32,11 +33,10 @@ export default function useStudents() {
 
   useEffect(() => {
     getStudents();
-  }, []);
+  }, [topOnly]);
 
   return {
     students,
-    topStudents,
     isLoading,
     refetch: getStudents,
   };
