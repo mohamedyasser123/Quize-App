@@ -9,9 +9,8 @@ import toast from "react-hot-toast";
 
 type Props = {
   form: UseFormReturn<CreateQuizPayload>;
-  onSuccess?: () => void;
+  onSuccess?: (code: string) => void;
 };
-
 export default function useCreateQuiz({
   form,
   onSuccess,
@@ -28,7 +27,7 @@ export default function useCreateQuiz({
 
       form.reset();
 
-      onSuccess?.();
+      onSuccess?.(response.data.code);
     } catch (error: any) {
       const errors = error?.response?.data?.additionalInfo?.errors;
 

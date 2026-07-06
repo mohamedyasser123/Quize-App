@@ -4,11 +4,11 @@
 import  { useState } from "react";
 import { PlusCircle, Eye, Edit3, Trash2 } from "lucide-react";
 import useQuestions from "@/src/hooks/instractor/question/useQuestions";
-import { Question } from "@/src/types/instractor";
 import QuestionDialog from "@/src/components/Questions/AddEidtQuestionDialog";
 import useDeleteQuestion from "@/src/hooks/instractor/question/useDeleteQuestion";
 import QuestionDetailsDialog from "@/src/components/Questions/QuestionDetailsDialog";
 import ConfirmDeleteDialog from "@/src/components/shared/DeleteConfirmation/DeleteConfirmation";
+import { Question } from "@/src/types/instractor/question/question-type";
 
 export default function Questions() {
   const { questions, loading, getQuestions } = useQuestions();

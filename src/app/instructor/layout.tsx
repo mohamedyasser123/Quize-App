@@ -7,7 +7,7 @@ export default function InstructorLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex h-screen w-screen overflow-hidden bg-slate-100 relative">
+    <div className="flex h-screen w-screen overflow-hidden bg-white relative">
       <Sidebar />
 
       <div className="flex flex-col flex-1 overflow-hidden w-full">
