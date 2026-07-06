@@ -16,19 +16,16 @@ type Props = {
 };
 
 export default function ViewQuizDialog({ open, onOpenChange, quiz }: Props) {
-  // لو مفيش كويز لسه (أو لسه الداتا بتيجي) مش هيعرض حاجة لحد ما تجهز
   if (!quiz) return null;
 
   const totalScore =
     (quiz.questions_number || 0) * (quiz.score_per_question || 5);
 
-  // أخذ أول 5 أسئلة فقط المتاحة من مصفوفة الأسئلة
   const displayedQuestions = quiz.questions?.slice(0, 5) || [];
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-3xl p-0 overflow-y-auto max-h-[90vh] bg-white border border-[#EAD5C3] shadow-2xl rounded-2xl [&>button]:hidden font-sans">
-        {/* هيدر المودال */}
         <div className="flex justify-between items-center px-6 py-4 bg-white border-b border-[#F4E3D4]">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold text-[#2C1A11]">
@@ -43,7 +40,6 @@ export default function ViewQuizDialog({ open, onOpenChange, quiz }: Props) {
           </button>
         </div>
 
-        {/* الكارد العلوي */}
         <div className="mx-6 mt-4 p-6 bg-[#FAF2EC] border border-[#EAD5C3] rounded-2xl shadow-sm relative overflow-hidden">
           <div className="relative z-10">
             <div className="flex items-center gap-2.5 mb-2">
@@ -71,9 +67,7 @@ export default function ViewQuizDialog({ open, onOpenChange, quiz }: Props) {
           </div>
         </div>
 
-        {/* باقي محتويات وتفاصيل الكويز والأسئلة */}
         <div className="p-6 space-y-6">
-          {/* كروت الإحصائيات */}
           <div className="grid grid-cols-3 gap-4">
             <div className="bg-[#FFF9F5] border border-[#F4E3D4] rounded-xl p-4 flex items-center gap-3">
               <div className="p-2.5 bg-white border border-[#EAD5C3] rounded-lg text-[#5C4636] shadow-sm">
@@ -118,7 +112,6 @@ export default function ViewQuizDialog({ open, onOpenChange, quiz }: Props) {
             </div>
           </div>
 
-          {/* البادجات السفلية */}
           <div className="flex flex-wrap gap-2 pt-1">
             <span
               className={`px-3 py-1 rounded-full text-xs font-bold border uppercase ${
@@ -134,7 +127,6 @@ export default function ViewQuizDialog({ open, onOpenChange, quiz }: Props) {
             </span>
           </div>
 
-          {/* تاريخ وجدولة الكويز */}
           <div className="bg-[#FAF2EC] border border-[#EAD5C3] rounded-xl p-4 flex flex-col gap-1">
             <div className="flex items-center gap-2 text-xs font-bold text-[#7A6453]">
               <Calendar size={15} />

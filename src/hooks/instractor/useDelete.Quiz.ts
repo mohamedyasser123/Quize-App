@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 import { deleteQuizApi } from "@/src/services/instractor";
 
 export default function useDeleteQuiz(onSuccess?: () => void) {
@@ -14,13 +15,20 @@ export default function useDeleteQuiz(onSuccess?: () => void) {
 
       const response = await deleteQuizApi(id);
 
-      onSuccess?.(); 
-      
+      toast.success(response.message || "Quiz deleted successfully!");
+
+      onSuccess?.();
 
       return response;
     } catch (err: any) {
       console.error(err);
-      setError(err?.message || "Something went wrong");
+
+      setError(err?.response?.data?.message || "Something went wrong");
+
+      toast.error(
+        err?.response?.data?.message || "Failed to delete quiz."
+      );
+
       throw err;
     } finally {
       setIsDeleting(false);
