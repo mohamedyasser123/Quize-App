@@ -1,16 +1,14 @@
 
 "use client";
 
-import React, { useState } from "react";
+import  { useState } from "react";
 import { PlusCircle, Eye, Edit3, Trash2 } from "lucide-react";
 import useQuestions from "@/src/hooks/instractor/useQuestions";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Question } from "@/src/types/instractor";
-import AddQuestionDialog from "@/src/components/Questions/AddEidtQuestionDialog";
 import QuestionDialog from "@/src/components/Questions/AddEidtQuestionDialog";
-import ConfirmDeleteDialog from "@/src/components/shared/DeleteConfirmation";
 import useDeleteQuestion from "@/src/hooks/instractor/useDeleteQuestion";
 import QuestionDetailsDialog from "@/src/components/Questions/QuestionDetailsDialog";
+import ConfirmDeleteDialog from "@/src/components/shared/DeleteConfirmation/DeleteConfirmation";
 
 export default function Questions() {
   const { questions, loading, getQuestions } = useQuestions();
