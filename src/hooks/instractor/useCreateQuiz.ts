@@ -1,32 +1,56 @@
 "use client";
 
-import { createQuizApi } from "@/src/services/instractor";
 import { useState } from "react";
+import { SubmitHandler, UseFormReturn } from "react-hook-form";
+import { createQuizApi } from "@/src/services/instractor";
+import { CreateQuizPayload } from "@/src/types/instractor";
 import toast from "react-hot-toast";
 
+type Props = {
+  form: UseFormReturn<CreateQuizPayload>;
+  onSuccess?: () => void;
+};
 
-export default function useCreateQuiz() {
+export default function useCreateQuiz({
+  form,
+  onSuccess,
+}: Props) {
   const [isLoading, setIsLoading] = useState(false);
 
-  const createQuiz = async () => {
+  const onSubmit: SubmitHandler<CreateQuizPayload> = async (data) => {
     try {
       setIsLoading(true);
 
-      const response = await createQuizApi();
+      const response = await createQuizApi(data);
 
-      toast.success(response.message);
+      toast.success(response.message || "Quiz created successfully!");
 
-      return response.data;
-    } catch (error) {
-      console.error(error);
-      throw error;
+      form.reset();
+
+      onSuccess?.();
+    } catch (error: any) {
+      const errors = error?.response?.data?.additionalInfo?.errors;
+
+      if (errors) {
+        Object.values(errors).forEach((messages: any) => {
+          if (Array.isArray(messages)) {
+            messages.forEach((msg: string) => {
+              toast.error(msg);
+            });
+          }
+        });
+      } else {
+        toast.error(
+          error?.response?.data?.message || "Something went wrong"
+        );
+      }
     } finally {
       setIsLoading(false);
     }
   };
 
   return {
-    createQuiz,
+    onSubmit,
     isLoading,
   };
 }
