@@ -4,7 +4,6 @@ import useinComingQuizzes from "@/src/hooks/instractor/quiz/useInComingQuizzes";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
-// 1. الكومبوننت الخاص بالـ SkeletonCard بعد تظبيطه هندسياً ليطابق مقاس الكارت الأصلي
 function SkeletonCard() {
   return (
     <Card className="w-full bg-white border border-[#EAD5C3] rounded-xl p-5 shadow-sm space-y-4">
@@ -18,7 +17,6 @@ function SkeletonCard() {
       <CardContent className="p-0 space-y-5">
         <Skeleton className="h-4 w-5/6 bg-[#F5E6DA]/60" />
         
-        {/* شبكة الأيقونات الداخلية */}
         <div className="grid grid-cols-2 gap-4">
           <Skeleton className="h-4 w-24 bg-[#F5E6DA]/60" />
           <Skeleton className="h-4 w-28 bg-[#F5E6DA]/60" />
@@ -31,7 +29,6 @@ function SkeletonCard() {
           <Skeleton className="h-4 w-20 bg-[#F5E6DA]/60" />
         </div>
 
-        {/* التواريخ السفلية */}
         <div className="border-t border-[#F4E3D4] pt-3 space-y-2">
           <Skeleton className="h-3 w-40 bg-[#F5E6DA]/60" />
           <Skeleton className="h-3 w-40 bg-[#F5E6DA]/60" />
@@ -44,116 +41,32 @@ function SkeletonCard() {
 export default function InComingQuizzes() {
   const { quizzes, isLoading } = useinComingQuizzes();
 
-  const mockQuizzes = [
-    {
-      _id: "1",
-      title: "front end",
-      code: "X92QX0V",
-      description: "front end",
-      questions_number: 3,
-      duration: 30,
-      score: 15,
-      difficulty: "EASY",
-      category: "FE",
-      schedule: "Jul 31, 2025, 10:25 AM",
-      closed_at: "Jul 31, 2025, 10:56 AM",
-      status: "CLOSED",
-      participants: 1,
-    },
-    {
-      _id: "2",
-      title: "JavaScript Advanced",
-      code: "J88A72X",
-      description: "ES6, Promises & Async",
-      questions_number: 15,
-      duration: 25,
-      score: 75,
-      difficulty: "MEDIUM",
-      category: "JS",
-      schedule: "Aug 02, 2025, 02:00 PM",
-      closed_at: "Aug 02, 2025, 02:25 PM",
-      status: "CLOSED",
-      participants: 12,
-    },
-    {
-      _id: "3",
-      title: "front end",
-      code: "X92QX0V",
-      description: "front end",
-      questions_number: 3,
-      duration: 30,
-      score: 15,
-      difficulty: "EASY",
-      category: "FE",
-      schedule: "Jul 31, 2025, 10:25 AM",
-      closed_at: "Jul 31, 2025, 10:56 AM",
-      status: "CLOSED",
-      participants: 1,
-    },
-    {
-      _id: "4",
-      title: "front end",
-      code: "X92QX0V",
-      description: "front end",
-      questions_number: 3,
-      duration: 30,
-      score: 15,
-      difficulty: "EASY",
-      category: "FE",
-      schedule: "Jul 31, 2025, 10:25 AM",
-      closed_at: "Jul 31, 2025, 10:56 AM",
-      status: "CLOSED",
-      participants: 1,
-    },
-    {
-      _id: "5",
-      title: "front end",
-      code: "X92QX0V",
-      description: "front end",
-      questions_number: 3,
-      duration: 30,
-      score: 15,
-      difficulty: "EASY",
-      category: "FE",
-      schedule: "Jul 31, 2025, 10:25 AM",
-      closed_at: "Jul 31, 2025, 10:56 AM",
-      status: "CLOSED",
-      participants: 1,
-    },
-  ];
-
-  const displayedQuizzes = quizzes?.length ? quizzes : mockQuizzes;
-
   return (
     <section className="mt-8 rounded-2xl">
       <h2 className="text-2xl font-bold mb-6 text-[#2C1A11]">
-        Upcoming Quizzes
+        Incoming Quizzes
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-        {/* 2. شرط التحميل الحركي: عرض 3 كروت متحركة متناسقة داخل الـ Grid */}
         {isLoading ? (
           Array.from({ length: 3 }).map((_, index) => (
             <SkeletonCard key={index} />
           ))
         ) : (
-          // 3. عرض الكروت الحقيقية بعد انتهاء التحميل
-          displayedQuizzes.map((quiz: any) => {
-            const ptsPerQuestion =
-              quiz.questions_number > 0
-                ? Math.round(quiz.score / quiz.questions_number)
-                : 0;
+          quizzes?.map((quiz: any) => {
+            const ptsPerQuestion = quiz.score_per_question || 0;
+            const isClosed = quiz.status?.toUpperCase() === "CLOSED";
 
             return (
               <div
                 key={quiz._id}
-                className="bg-white border border-[#EAD5C3] rounded-xl p-5 text-[#5C4636] w-full font-sans shadow-sm hover:bg-[#FFF9F5] transition-colors duration-200"
+                className=" border border-[#EAD5C3] rounded-xl p-5 text-[#5C4636] w-full font-sans shadow-sm bg-[#FFF9F5] transition-colors duration-200"
               >
                 <div className="flex justify-between items-start mb-2">
                   <h3 className="text-xl font-bold text-[#2C1A11] tracking-wide">
                     {quiz.title}
                   </h3>
-                  {(quiz.status === "CLOSED" || !quiz.status) && (
+                  {isClosed ? (
                     <span className="flex items-center gap-1 bg-[#FCE8E6] text-[#C5221F] text-xs font-bold px-2.5 py-1 rounded-full border border-[#FAD2CF]">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -170,6 +83,10 @@ export default function InComingQuizzes() {
                       </svg>
                       CLOSED
                     </span>
+                  ) : (
+                    <span className="flex items-center gap-1 bg-[#E6F4EA] text-[#137333] text-xs font-bold px-2.5 py-1 rounded-full border border-[#CEEAD6]">
+                      OPEN
+                    </span>
                   )}
                 </div>
 
@@ -178,7 +95,7 @@ export default function InComingQuizzes() {
                 </div>
 
                 <p className="text-[#7A6453] text-sm mb-5 font-medium">
-                  {quiz.description}
+                  {quiz.description || "No description provided."}
                 </p>
 
                 <div className="grid grid-cols-2 gap-y-4 gap-x-2 text-sm text-[#5C4636] mb-5">
@@ -217,7 +134,7 @@ export default function InComingQuizzes() {
                       <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
                       <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                     </svg>
-                    <span>{quiz.participants || 0} participants</span>
+                    <span>  {quiz.difficulty || 0} </span>
                   </div>
 
                   <div className="flex items-center gap-2">
@@ -265,9 +182,9 @@ export default function InComingQuizzes() {
                 <div className="flex justify-between items-center mb-4">
                   <span
                     className={`px-3 py-1 rounded-full text-xs font-bold border ${
-                      quiz.difficulty === "EASY"
+                      quiz.difficulty?.toLowerCase() === "easy"
                         ? "bg-[#E6F4EA] text-[#137333] border-[#CEEAD6]"
-                        : quiz.difficulty === "MEDIUM"
+                        : quiz.difficulty?.toLowerCase() === "medium"
                         ? "bg-[#FEF7E0] text-[#B06000] border-[#FEEFC3]"
                         : "bg-[#FCE8E6] text-[#C5221F] border-[#FAD2CF]"
                     }`}
@@ -275,7 +192,7 @@ export default function InComingQuizzes() {
                     {quiz.difficulty?.toUpperCase()}
                   </span>
                   <span className="text-[#7A6453] text-xs font-semibold">
-                    Type: {quiz.category}
+                    Type: {quiz.type}
                   </span>
                 </div>
 
@@ -298,7 +215,15 @@ export default function InComingQuizzes() {
                       <line x1="8" x2="8" y1="2" y2="6" />
                       <line x1="3" x2="21" y1="10" y2="10" />
                     </svg>
-                    <span>Scheduled: {quiz.schedule}</span>
+                    <span>
+                      Scheduled:{" "}
+                      {quiz.schadule
+                        ? new Date(quiz.schadule).toLocaleString("en-US", {
+                            dateStyle: "medium",
+                            timeStyle: "short",
+                          })
+                        : "N/A"}
+                    </span>
                   </div>
                   <div className="flex items-center gap-2">
                     <svg
@@ -316,7 +241,15 @@ export default function InComingQuizzes() {
                       <circle cx="12" cy="12" r="10" />
                       <polyline points="12 6 12 12 14 14" />
                     </svg>
-                    <span>Closed: {quiz.closed_at || "N/A"}</span>
+                    <span>
+                      Updated At:{" "}
+                      {quiz.updatedAt
+                        ? new Date(quiz.updatedAt).toLocaleString("en-US", {
+                            dateStyle: "medium",
+                            timeStyle: "short",
+                          })
+                        : "N/A"}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -324,6 +257,12 @@ export default function InComingQuizzes() {
           })
         )}
       </div>
+
+      {!isLoading && quizzes?.length === 0 && (
+        <div className="text-center py-12 text-[#7A6453] bg-white border border-[#EAD5C3] rounded-xl shadow-sm">
+          No upcoming quizzes found.
+        </div>
+      )}
     </section>
   );
 }

@@ -2,7 +2,7 @@
 
 import { deleteQuizApi } from "@/src/services/instractor/quiz/quiz-api";
 import { useState } from "react";
-import { toast } from "react-hot-toast";
+import toast  from "react-hot-toast";
 
 export default function useDeleteQuiz(onSuccess?: () => void) {
   const [isDeleting, setIsDeleting] = useState(false);
@@ -15,7 +15,7 @@ export default function useDeleteQuiz(onSuccess?: () => void) {
 
       const response = await deleteQuizApi(id);
 
-      toast.success(response.message || "Quiz deleted successfully!");
+       toast.success(response.message);
 
       onSuccess?.();
 

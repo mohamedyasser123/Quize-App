@@ -9,7 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import useCreateQuestion from "@/src/hooks/instractor/quiz/useCreateQuestion";
+import useCreateQuestion from "@/src/hooks/instractor/question/useCreateQuestion";
 import useUpdateQuestion from "@/src/hooks/instractor/question/useUpdateQuestion";
 import { CreateQuestionData, Question } from "@/src/types/instractor/question/question-type";
 
