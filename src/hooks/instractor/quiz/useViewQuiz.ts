@@ -1,8 +1,9 @@
 "use client";
 
+import { getQuizByIdApi } from "@/src/services/instractor/quiz/quiz-api";
+import { Quiz } from "@/src/types/instractor/Quiz/quiz-type";
 import { useState } from "react";
-import { getQuizByIdApi } from "@/src/services/instractor";
-import { Quiz } from "@/src/types/instractor";
+
 
 export default function useViewQuiz() {
   const [quiz, setQuiz] = useState<Quiz | null>(null);

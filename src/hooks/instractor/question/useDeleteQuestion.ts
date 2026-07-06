@@ -1,6 +1,6 @@
 "use client";
 
-import { deleteQuestionApi } from "@/src/services/instractor";
+import { deleteQuestionApi } from "@/src/services/instractor/question/question-api";
 import { useState } from "react";
 import toast from "react-hot-toast";
 

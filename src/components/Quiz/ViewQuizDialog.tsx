@@ -6,7 +6,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Quiz } from "@/src/types/instractor";
+import { Quiz } from "@/src/types/instractor/Quiz/quiz-type";
 import { X, Clock, Award, HelpCircle, Calendar, BookOpen } from "lucide-react";
 
 type Props = {

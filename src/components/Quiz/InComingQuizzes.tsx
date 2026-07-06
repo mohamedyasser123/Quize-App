@@ -1,6 +1,6 @@
 "use client";
 
-import useinComingQuizzes from "@/src/hooks/instractor/useInComingQuizzes";
+import useinComingQuizzes from "@/src/hooks/instractor/quiz/useInComingQuizzes";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 

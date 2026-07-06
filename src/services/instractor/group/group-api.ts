@@ -1,5 +1,5 @@
-import axiosInstance from "../axiosClient";
-import { GroupFormData } from "@/src/types/group/group-type";
+import { GroupFormData } from "@/src/types/instractor/group/group-type";
+import axiosInstance from "../../axiosClient";
 
 export const getAllGroupsApi = async () => {
   const { data } = await axiosInstance.get("/api/group");

@@ -4,11 +4,9 @@ import { useEffect, useState } from "react";
 import {
   Group,
   GroupFormData,
-} from "@/src/types/group/group-type";
-import {
-  getAllGroupsApi,
-  createGroupApi,
-} from "@/src/services/group";
+} from "@/src/types/instractor/group/group-type";
+import { createGroupApi, getAllGroupsApi } from "@/src/services/instractor/group/group-api";
+
 
 export default function useGroups() {
   const [groups, setGroups] = useState<Group[]>([]);

@@ -1,9 +1,10 @@
 "use client";
 
+import { createQuizApi } from "@/src/services/instractor/quiz/quiz-api";
+import { CreateQuizPayload } from "@/src/types/instractor/Quiz/quiz-type";
 import { useState } from "react";
 import { SubmitHandler, UseFormReturn } from "react-hook-form";
-import { createQuizApi } from "@/src/services/instractor";
-import { CreateQuizPayload } from "@/src/types/instractor";
+
 import toast from "react-hot-toast";
 
 type Props = {

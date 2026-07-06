@@ -1,7 +1,7 @@
 "use client";
 
+import { getCompletedQuizzesApi } from "@/src/services/instractor/quiz/quiz-api";
 import { useEffect, useState } from "react";
-import { getCompletedQuizzesApi } from "@/src/services/instractor";
 
 export default function useCompletedQuizzes() {
   const [quizzes, setQuizzes] = useState([]);

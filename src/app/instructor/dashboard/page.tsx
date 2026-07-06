@@ -3,8 +3,8 @@
 
 import Image from "next/image";
 import { ArrowRight, ArrowRightCircle } from "lucide-react";
-import useStudents from '@/src/hooks/student/useStudent';
-import useinComingQuizzes from "@/src/hooks/instractor/useInComingQuizzes";
+import useStudents from '@/src/hooks/instractor/student/useStudent';
+import useinComingQuizzes from "@/src/hooks/instractor/quiz/useInComingQuizzes";
 
 
 export default function InstructorDashboard() {

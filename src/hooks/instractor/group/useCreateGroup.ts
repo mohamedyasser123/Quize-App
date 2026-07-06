@@ -1,7 +1,7 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import { GroupFormData } from "@/src/types/group/group-type";
+import { GroupFormData } from "@/src/types/instractor/group/group-type";
 
 interface UseCreateGroupProps {
   onCreateGroup: (data: GroupFormData) => Promise<void>;

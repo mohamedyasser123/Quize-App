@@ -1,9 +1,9 @@
 "use client";
 
+import { getStudentsApi } from "@/src/services/instractor/student-api";
+import { Student } from "@/src/types/instractor/students/student-type";
 import { useEffect, useState } from "react";
-import { getStudentsApi } from "@/src/services/student";
 import toast from "react-hot-toast";
-import { Student } from "@/src/types/student";
 
 export default function useStudents() {
   const [students, setStudents] = useState<Student[]>([]);

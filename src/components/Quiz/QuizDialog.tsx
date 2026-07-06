@@ -6,8 +6,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import useCreateQuiz from "@/src/hooks/instractor/useCreateQuiz";
-import { CreateQuizPayload } from "@/src/types/instractor";
+import useCreateQuiz from "@/src/hooks/instractor/quiz/useCreateQuiz";
+import { CreateQuizPayload } from "@/src/types/instractor/Quiz/quiz-type";
 import { Check, X, Calendar, Clock } from "lucide-react";
 import { useForm } from "react-hook-form";
 

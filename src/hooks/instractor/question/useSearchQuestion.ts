@@ -1,7 +1,8 @@
 "use client";
 
-import { searchQuestionsApi } from "@/src/services/instractor";
-import { Question, SearchQuestionParams } from "@/src/types/instractor";
+
+import { searchQuestionsApi } from "@/src/services/instractor/question/question-api";
+import { Question, SearchQuestionParams } from "@/src/types/instractor/question/question-type";
 import { useState } from "react";
 import toast from "react-hot-toast";
 

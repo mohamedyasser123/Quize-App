@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Group, GroupFormData } from "@/src/types/group/group-type";
+import { Group, GroupFormData } from "@/src/types/instractor/group/group-type";
 
 interface UseUpdateGroupProps {
   group: Group;

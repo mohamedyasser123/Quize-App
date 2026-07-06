@@ -1,6 +1,6 @@
 "use client";
 
-import useCompletedQuizzes from "@/src/hooks/instractor/useCompletedQuizzes";
+import useCompletedQuizzes from "@/src/hooks/instractor/quiz/useCompletedQuizzes";
 import {
   Table,
   TableBody,
@@ -10,10 +10,10 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Eye, Trash2 } from "lucide-react";
-import useViewQuiz from "@/src/hooks/instractor/useViewQuiz";
+import useViewQuiz from "@/src/hooks/instractor/quiz/useViewQuiz";
 import { useState } from "react";
 import ViewQuizDialog from "./ViewQuizDialog";
-import useDeleteQuiz from "@/src/hooks/instractor/useDelete.Quiz";
+import useDeleteQuiz from "@/src/hooks/instractor/quiz/useDelete.Quiz";
 import ConfirmDeleteDialog from "../shared/DeleteConfirmation/DeleteConfirmation";
 import { Skeleton } from "@/components/ui/skeleton";
 

@@ -1,8 +1,8 @@
 "use client";
 
+import { deleteQuizApi } from "@/src/services/instractor/quiz/quiz-api";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
-import { deleteQuizApi } from "@/src/services/instractor";
 
 export default function useDeleteQuiz(onSuccess?: () => void) {
   const [isDeleting, setIsDeleting] = useState(false);

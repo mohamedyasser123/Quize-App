@@ -1,6 +1,6 @@
 "use client";
 
-import { getIncomingQuizzesApi } from "@/src/services/instractor";
+import { getIncomingQuizzesApi } from "@/src/services/instractor/quiz/quiz-api";
 import { useEffect, useState } from "react";
 
 export default function useinComingQuizzes() {

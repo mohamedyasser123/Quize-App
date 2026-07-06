@@ -1,8 +1,8 @@
 "use client";
 
+import { deleteGroupApi } from "@/src/services/instractor/group/group-api";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { deleteGroupApi } from "@/src/services/group";
 
 interface UseDeleteGroupProps {
   onGroupsChange: () => Promise<void>;

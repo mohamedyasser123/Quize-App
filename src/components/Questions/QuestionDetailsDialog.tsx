@@ -8,7 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Question } from "@/src/types/instractor";
+import { Question } from "@/src/types/instractor/question/question-type";
 
 interface QuestionDetailsDialogProps {
   open: boolean;
