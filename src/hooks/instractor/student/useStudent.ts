@@ -1,6 +1,6 @@
 "use client";
 
-import { getStudentsApi } from "@/src/services/instractor/student-api";
+import { getStudentsApi } from "@/src/services/instractor/student/student-api";
 import { Student } from "@/src/types/instractor/students/student-type";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
