@@ -1,16 +1,43 @@
 
 "use client";
 
-import { ChevronRight } from "lucide-react";
+import { AlertCircle, ChevronRight } from "lucide-react";
 import useStudents from "@/src/hooks/instractor/student/useStudent";
+import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
+import { useEffect, useState } from "react";
 
 
 
 
 export default function Students() {
-  const { students, isLoading } = useStudents(false);
-  const skeletonCards = Array(6).fill(null);
+const { students, isLoading } = useStudents(false);
+console.log(students);
+const skeletonCards = Array(6).fill(null);
 
+const ITEMS_PER_PAGE = 4;
+
+const [currentPage, setCurrentPage] = useState(1);
+
+const safeStudents = students ?? [];
+
+const totalItems = safeStudents.length;
+const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+
+const indexOfLastItem = currentPage * ITEMS_PER_PAGE;
+const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
+
+const currentItems = safeStudents.slice(
+  indexOfFirstItem,
+  indexOfLastItem
+);
+const handlePageChange = (page: number) => {
+  if (page >= 1 && page <= totalPages) {
+    setCurrentPage(page);
+  }
+};
+useEffect(() => {
+  setCurrentPage(1);
+}, [students]);
   return (
     <div className="w-full min-h-screen bg-gray-50/50 p-4 md:p-8 text-[#2C1A11]">
 
@@ -38,7 +65,7 @@ export default function Students() {
               </div>
             ))
           ) : (
-            students?.map((student: any) => (
+            currentItems?.map((student: any) => (
               <div
                 key={student._id}
                 className="flex items-center justify-between p-3.5 border border-gray-200 rounded-xl hover:shadow-md hover:border-gray-300 transition duration-200 bg-white"
@@ -87,15 +114,70 @@ export default function Students() {
           )}
         </div>
 
-        {!isLoading && (
-          <div className="flex justify-start items-center gap-2 mt-8 text-sm font-medium text-gray-500 select-none">
-            <span className="cursor-pointer hover:text-black transition">...</span>
-            <button className="w-6 h-6 flex items-center justify-center rounded hover:bg-gray-100 text-black font-bold">1</button>
-            <button className="w-6 h-6 flex items-center justify-center rounded hover:bg-gray-100">2</button>
-            <button className="w-6 h-6 flex items-center justify-center rounded hover:bg-gray-100">3</button>
-            <span className="cursor-pointer hover:text-black transition">...</span>
-          </div>
-        )}
+         {totalPages > 1 && (
+            <div className="mt-6 flex justify-center">
+              <Pagination>
+                <PaginationContent className="border border-[#EAD5C3] bg-white rounded-lg p-1 shadow-sm">
+                  
+                  <PaginationItem>
+                    <PaginationPrevious
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handlePageChange(currentPage - 1);
+                      }}
+                      className={`text-[#5C4636] hover:bg-[#FAF2EC] hover:text-[#2C1A11] transition-colors cursor-pointer ${
+                        currentPage === 1 ? "pointer-events-none opacity-40" : ""
+                      }`}
+                    />
+                  </PaginationItem>
+
+                  {Array.from(
+  { length: Math.min(totalPages, 5) },
+  (_, index) => {
+    const pageNum = index + 1;
+
+    return (
+      <PaginationItem key={pageNum}>
+        <PaginationLink
+          href="#"
+          onClick={(e) => {
+            e.preventDefault();
+            handlePageChange(pageNum);
+          }}
+          isActive={currentPage === pageNum}
+        >
+          {pageNum}
+        </PaginationLink>
+      </PaginationItem>
+    );
+  }
+)}
+
+                  <PaginationItem>
+                    <PaginationNext
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handlePageChange(currentPage + 1);
+                      }}
+                      className={`text-[#5C4636] hover:bg-[#FAF2EC] hover:text-[#2C1A11] transition-colors cursor-pointer ${
+                        currentPage === totalPages ? "pointer-events-none opacity-40" : ""
+                      }`}
+                    />
+                  </PaginationItem>
+
+                </PaginationContent>
+              </Pagination>
+            </div>
+          )}
+
+          {totalItems === 0 && (
+            <div className="text-center py-12 border border-dashed border-[#EAD5C3] rounded-xl bg-[#FAF2EC]/30 text-[#7A6453] flex flex-col items-center justify-center gap-2">
+              <AlertCircle size={28} className="text-[#BAA390]" />
+              <p className="font-medium">No quiz results found.</p>
+            </div>
+          )}
 
       </div>
     </div>
