@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import {
   Table,
   TableBody,
@@ -12,8 +13,21 @@ import { Skeleton } from "@/components/ui/skeleton";
 import useQuizResults from "@/src/hooks/instractor/result/useGetResult";
 import { AlertCircle, Clock } from "lucide-react";
 
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+
 export default function QuizResults() {
   const { results, isLoading } = useQuizResults();
+  
+  const [currentPage, setCurrentPage] = useState(1);
+  const ITEMS_PER_PAGE = 3; // 
 
   const getDifficultyStyles = (difficulty: string = "") => {
     switch (difficulty.toLowerCase()) {
@@ -26,20 +40,31 @@ export default function QuizResults() {
     }
   };
 
+  const safeResults = Array.isArray(results) ? results : [];
+  const totalItems = safeResults.length;
+  const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+  
+  const indexOfLastItem = currentPage * ITEMS_PER_PAGE;
+  const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
+  const currentItems = safeResults.slice(indexOfFirstItem, indexOfLastItem);
+
+  const handlePageChange = (page: number) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
+
   return (
     <section className="mt-10 rounded-2xl">
       <h2 className="text-2xl font-bold mb-6 text-[#2C1A11]">
-        All Results
+        Quiz Results
       </h2>
 
       {isLoading && (
         <>
           <div className="grid grid-cols-1 gap-4 md:hidden">
             {Array.from({ length: 3 }).map((_, index) => (
-              <div
-                key={index}
-                className="p-5 border border-[#EAD5C3] rounded-xl bg-white space-y-3"
-              >
+              <div key={index} className="p-5 border border-[#EAD5C3] rounded-xl bg-white space-y-3">
                 <Skeleton className="h-5 w-2/3 bg-[#F5E6DA]/60" />
                 <Skeleton className="h-4 w-full bg-[#F5E6DA]/60" />
                 <div className="flex gap-2 pt-2">
@@ -62,15 +87,13 @@ export default function QuizResults() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {Array.from({ length: 4 }).map((_, index) => (
+                {Array.from({ length: 3 }).map((_, index) => (
                   <TableRow key={index} className="border-[#F4E3D4]">
-                    <TableCell className="px-6 py-4"><Skeleton className="h-4 w-24 bg-[#F5E6DA]/60" /></TableCell>
-                    <TableCell className="px-6 py-4"><Skeleton className="h-4 w-32 bg-[#F5E6DA]/60" /></TableCell>
-                    <TableCell className="px-6 py-4"><Skeleton className="h-5 w-16 rounded-full bg-[#F5E6DA]/60" /></TableCell>
-                    <TableCell className="px-6 py-4"><Skeleton className="h-4 w-12 bg-[#F5E6DA]/60" /></TableCell>
-                    <TableCell className="px-6 py-4"><Skeleton className="h-5 w-16 rounded-full bg-[#F5E6DA]/60" /></TableCell>
-                    <TableCell className="px-6 py-4"><Skeleton className="h-4 w-14 bg-[#F5E6DA]/60" /></TableCell>
-                    <TableCell className="px-6 py-4"><Skeleton className="h-4 w-14 bg-[#F5E6DA]/60" /></TableCell>
+                    {Array.from({ length: 7 }).map((_, i) => (
+                      <TableCell key={i} className="px-6 py-4">
+                        <Skeleton className="h-4 w-20 bg-[#F5E6DA]/60" />
+                      </TableCell>
+                    ))}
                   </TableRow>
                 ))}
               </TableBody>
@@ -82,7 +105,7 @@ export default function QuizResults() {
       {!isLoading && (
         <>
           <div className="grid grid-cols-1 gap-4 md:hidden">
-            {Array.isArray(results) && results.map((item: any) => {
+            {currentItems.map((item: any) => {
               const quiz = item?.quiz;
               if (!quiz) return null;
 
@@ -130,7 +153,7 @@ export default function QuizResults() {
                       <span>{quiz.duration} Mins</span>
                     </div>
                     <div className="font-bold text-[#2C1A11] bg-[#FFF9F5] px-2 py-1 rounded border border-[#F4E3D4]">
-                      Total: {quiz.questions_number * quiz.score_per_question} Pts
+                      Total: {(quiz.questions_number ?? 0) * (quiz.score_per_question ?? 0)} Pts
                     </div>
                   </div>
                 </div>
@@ -153,7 +176,7 @@ export default function QuizResults() {
               </TableHeader>
 
               <TableBody>
-                {Array.isArray(results) && results.map((item: any) => {
+                {currentItems.map((item: any) => {
                   const quiz = item?.quiz;
                   if (!quiz) return null;
 
@@ -164,41 +187,23 @@ export default function QuizResults() {
                       key={quiz._id}
                       className="border-[#F4E3D4] hover:bg-[#FFF9F5] transition-colors"
                     >
-                      <TableCell className="px-6 py-4 font-semibold text-[#2C1A11]">
-                        {quiz.title}
-                      </TableCell>
-
-                      <TableCell className="px-6 py-4 text-[#7A6453] max-w-[200px] truncate">
-                        {quiz.description || "-"}
-                      </TableCell>
-
+                      <TableCell className="px-6 py-4 font-semibold text-[#2C1A11]">{quiz.title}</TableCell>
+                      <TableCell className="px-6 py-4 text-[#7A6453] max-w-[200px] truncate">{quiz.description || "-"}</TableCell>
                       <TableCell className="px-6 py-4">
                         <span className={`px-3 py-1 rounded-full text-xs font-bold border ${getDifficultyStyles(quiz.difficulty)}`}>
                           {quiz.difficulty?.toUpperCase()}
                         </span>
                       </TableCell>
-
-                      <TableCell className="px-6 py-4 font-mono text-xs text-[#5C4636]">
-                        {quiz.type}
-                      </TableCell>
-
+                      <TableCell className="px-6 py-4 font-mono text-xs text-[#5C4636]">{quiz.type}</TableCell>
                       <TableCell className="px-6 py-4">
                         <span className={`px-3 py-1 rounded-full text-xs font-bold border ${
-                          quiz.status?.toLowerCase() === "open"
-                            ? "bg-[#E6F4EA] text-[#137333] border-[#CEEAD6]"
-                            : "bg-[#FCE8E6] text-[#C5221F] border-[#FAD2CF]"
+                          quiz.status?.toLowerCase() === "open" ? "bg-[#E6F4EA] text-[#137333] border-[#CEEAD6]" : "bg-[#FCE8E6] text-[#C5221F] border-[#FAD2CF]"
                         }`}>
                           {quiz.status?.toUpperCase()}
                         </span>
                       </TableCell>
-
-                      <TableCell className="px-6 py-4 text-[#7A6453] font-medium">
-                        {quiz.duration} mins
-                      </TableCell>
-
-                      <TableCell className="px-6 py-4 font-bold text-[#2C1A11]">
-                        {totalScore} pts
-                      </TableCell>
+                      <TableCell className="px-6 py-4 text-[#7A6453] font-medium">{quiz.duration} mins</TableCell>
+                      <TableCell className="px-6 py-4 font-bold text-[#2C1A11]">{totalScore} pts</TableCell>
                     </TableRow>
                   );
                 })}
@@ -206,7 +211,66 @@ export default function QuizResults() {
             </Table>
           </div>
 
-          {(!results || results.length === 0) && (
+          {totalPages > 1 && (
+            <div className="mt-6 flex justify-center">
+              <Pagination>
+                <PaginationContent className="border border-[#EAD5C3] bg-white rounded-lg p-1 shadow-sm">
+                  
+                  <PaginationItem>
+                    <PaginationPrevious
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handlePageChange(currentPage - 1);
+                      }}
+                      className={`text-[#5C4636] hover:bg-[#FAF2EC] hover:text-[#2C1A11] transition-colors cursor-pointer ${
+                        currentPage === 1 ? "pointer-events-none opacity-40" : ""
+                      }`}
+                    />
+                  </PaginationItem>
+
+                  {Array.from({ length: totalPages }).map((_, index) => {
+                    const pageNum = index + 1;
+                    return (
+                      <PaginationItem key={pageNum}>
+                        <PaginationLink
+                          href="#"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handlePageChange(pageNum);
+                          }}
+                          isActive={currentPage === pageNum}
+                          className={`rounded-md transition-all cursor-pointer ${
+                            currentPage === pageNum
+                              ? "bg-[#2C1A11] text-white hover:bg-[#2C1A11] hover:text-white font-bold"
+                              : "text-[#5C4636] hover:bg-[#FAF2EC] hover:text-[#2C1A11]"
+                          }`}
+                        >
+                          {pageNum}
+                        </PaginationLink>
+                      </PaginationItem>
+                    );
+                  })}
+
+                  <PaginationItem>
+                    <PaginationNext
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handlePageChange(currentPage + 1);
+                      }}
+                      className={`text-[#5C4636] hover:bg-[#FAF2EC] hover:text-[#2C1A11] transition-colors cursor-pointer ${
+                        currentPage === totalPages ? "pointer-events-none opacity-40" : ""
+                      }`}
+                    />
+                  </PaginationItem>
+
+                </PaginationContent>
+              </Pagination>
+            </div>
+          )}
+
+          {totalItems === 0 && (
             <div className="text-center py-12 border border-dashed border-[#EAD5C3] rounded-xl bg-[#FAF2EC]/30 text-[#7A6453] flex flex-col items-center justify-center gap-2">
               <AlertCircle size={28} className="text-[#BAA390]" />
               <p className="font-medium">No quiz results found.</p>
