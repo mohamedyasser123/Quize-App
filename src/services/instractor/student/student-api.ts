@@ -6,3 +6,7 @@ export const getStudentsApi = async (): Promise<StudentsResponse> => {
 
   return data;
 };
+export const deleteStudentApi = async (id: string) => {
+  const { data } = await axiosInstance.delete(`/api/student/${id}`);
+  return data;
+};
