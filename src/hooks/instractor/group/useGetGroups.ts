@@ -8,24 +8,30 @@ export default function useGetGroups() {
   const [groups, setGroups] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchGroups = async () => {
-      try {
-        setIsLoading(true);
-        const response = await getAllGroupsApi();
-        setGroups(response?.data || response || []);
-      } catch (error: any) {
-        toast.error(error?.response?.data?.message || "Failed to load groups");
-      } finally {
-        setIsLoading(false);
-      }
-    };
+  const getGroups = async () => {
+    try {
+      setIsLoading(true);
 
-    fetchGroups();
+      const response = await getAllGroupsApi();
+
+      setGroups(response?.data || response || []);
+    } catch (error: any) {
+      toast.error(
+        error?.response?.data?.message ||
+          "Failed to load groups"
+      );
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getGroups();
   }, []);
 
   return {
     groups,
     isLoading,
+    refetch: getGroups,
   };
 }
