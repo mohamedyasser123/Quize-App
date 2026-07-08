@@ -169,12 +169,7 @@ export default function Students() {
           </div>
         )}
 
-        {totalItems === 0 && (
-          <div className="text-center py-12 border border-dashed border-[#EAD5C3] rounded-xl bg-[#FAF2EC]/30 text-[#7A6453] flex flex-col items-center justify-center gap-2">
-            <AlertCircle size={28} className="text-[#BAA390]" />
-            <p className="font-medium">No quiz results found.</p>
-          </div>
-        )}
+
 
       </div>
     </div>
