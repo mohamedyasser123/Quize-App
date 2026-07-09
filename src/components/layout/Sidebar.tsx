@@ -29,9 +29,8 @@ const instructorItems = [
   ];
 
   const studentItems = [
-    { name: "Dashboard", href: "/student/dashboard", icon: LayoutDashboard },
-    { name: "Quizzes", href: "/student/quizzes", icon: FileText }, 
-    { name: "Results", href: "/student/results", icon: GraduationCap },
+    { name: "Quizzes", href: "/learner/quizzes", icon: FileText }, 
+    { name: "Results", href: "/learner/results", icon: GraduationCap },
   ];
   const menuItems = user?.role === "Instructor" ? instructorItems : studentItems;
 return (
