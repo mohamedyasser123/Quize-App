@@ -25,7 +25,7 @@ export default function Quizzes() {
         </button>
 
         <button
-          onClick={() => router.push("/instructor/questions")}
+          onClick={() => router.push("/questions")}
           className="inline-flex flex-col items-center justify-center gap-4 border border-[#EAD5C3] bg-white text-[#2C1A11] rounded-2xl px-10 py-8 cursor-pointer hover:bg-[#FFF9F5] hover:border-[#D6BEAA] transition-colors duration-200 shadow-sm">
           <RiSafe3Fill size={48} className="text-[#5C4636]" />
           <span className="text-xl font-bold tracking-wide">Question Bank</span>

@@ -13,13 +13,12 @@ export default async function Home() {
 
   const user = JSON.parse(userCookie.value);
 
-  if (user.role === "Instructor") {
-    redirect("/instructor/dashboard");
-  }
+ if (user.role === "Instructor") {
+  redirect("/dashboard");
+}
 
-  if (user.role === "Student") {
-    redirect("/student/dashboard");
-  }
-
+if (user.role === "Student") {
+  redirect("/quizzes"); 
+}
   redirect("/login");
 }
