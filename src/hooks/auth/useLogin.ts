@@ -50,9 +50,9 @@ const role = response.data.profile.role;
 console.log(response.data.profile);
 console.log(response.data.profile.role);
 if (role === "Instructor") {
-  router.replace("/instructor/dashboard");
+  router.replace("/dashboard");
 } else {
-  router.replace("/learner/dashboard");
+  router.replace("/quizzes");
 }
 
 

@@ -9,6 +9,23 @@ interface TokenPayload {
   exp: number;
 }
 
+const permissions: Record<"Instructor" | "Student", string[]> = {
+  Instructor: [
+    "/dashboard",
+    "/groups",
+    "/quizzes",
+    "/questions",
+    "/students",
+    "/results",
+    "/change-password",
+  ],
+  Student: [
+    "/quizzes",
+    "/results",
+    "/change-password",
+  ],
+};
+
 export function middleware(request: NextRequest) {
   const token = request.cookies.get("accessToken")?.value;
 
@@ -20,19 +37,16 @@ export function middleware(request: NextRequest) {
     const user = jwtDecode<TokenPayload>(token);
     const { pathname } = request.nextUrl;
 
-   if (
-  pathname.startsWith("/instructor") &&
-  user.role !== "Instructor"
-) {
-  return NextResponse.redirect(new URL("/login", request.url));
-}
+    const allowedRoutes = permissions[user.role];
 
-if (
-  pathname.startsWith("/learner") &&
-  user.role !== "Student"
-) {
-  return NextResponse.redirect(new URL("/login", request.url));
-}
+    const hasAccess = allowedRoutes.some(
+      (route) =>
+        pathname === route || pathname.startsWith(`${route}/`)
+    );
+
+    if (!hasAccess) {
+      return NextResponse.redirect(new URL("/login", request.url));
+    }
 
     return NextResponse.next();
   } catch {
@@ -40,11 +54,14 @@ if (
   }
 }
 
-
 export const config = {
   matcher: [
-    "/instructor/:path*",
-    "/learner/:path*",
+    "/dashboard/:path*",
+    "/groups/:path*",
+    "/quizzes/:path*",
+    "/questions/:path*",
+    "/students/:path*",
+    "/results/:path*",
     "/change-password",
   ],
 };
