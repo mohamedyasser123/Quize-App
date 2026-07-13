@@ -16,6 +16,7 @@ import ViewQuizDialog from "./ViewQuizDialog";
 import useDeleteQuiz from "@/src/hooks/instractor/quiz/useDeleteQuiz";
 import ConfirmDeleteDialog from "../shared/DeleteConfirmation/DeleteConfirmation";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useAuth } from "@/src/context/AuthContext/AuthContext";
 
 export default function CompleteQuizzes() {
   const { quizzes, isLoading } = useCompletedQuizzes();
@@ -24,7 +25,7 @@ export default function CompleteQuizzes() {
   const [open, setOpen] = useState(false);
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [openDelete, setOpenDelete] = useState(false);
-
+  const { user } = useAuth();
   const handleView = (id: string) => {
     setOpen(true);
     getQuiz(id);
@@ -231,9 +232,11 @@ export default function CompleteQuizzes() {
                   <TableHead className="px-6 py-4 text-[#5C4636] font-bold">
                     Schedule
                   </TableHead>
-                  <TableHead className="px-6 py-4 text-center text-[#5C4636] font-bold">
-                    Actions
-                  </TableHead>
+                  {user?.role === "Instructor" && (
+                    <TableHead className="px-6 py-4 text-center text-[#5C4636] font-bold">
+                      Actions
+                    </TableHead>
+                  )}
                 </TableRow>
               </TableHeader>
 
@@ -280,20 +283,23 @@ export default function CompleteQuizzes() {
                         : "-"}
                     </TableCell>
 
-                    <TableCell className="px-6 py-4">
-                      <div className="flex justify-center gap-4">
-                        <button
-                          onClick={() => handleView(quiz._id)}
-                          className="text-blue-600 hover:text-blue-800 transition cursor-pointer">
-                          <Eye size={18} />
-                        </button>
-                        <button
-                          onClick={() => handleDeleteClick(quiz._id)}
-                          className="text-red-500 hover:text-red-700 transition cursor-pointer">
-                          <Trash2 size={18} />
-                        </button>
-                      </div>
-                    </TableCell>
+                    {user?.role === "Instructor" && (
+                      <TableCell className="px-6 py-4">
+                        <div className="flex justify-center gap-4">
+                          <button
+                            onClick={() => handleView(quiz._id)}
+                            className="text-blue-600 hover:text-blue-800 transition cursor-pointer">
+                            <Eye size={18} />
+                          </button>
+
+                          <button
+                            onClick={() => handleDeleteClick(quiz._id)}
+                            className="text-red-500 hover:text-red-700 transition cursor-pointer">
+                            <Trash2 size={18} />
+                          </button>
+                        </div>
+                      </TableCell>
+                    )}
                   </TableRow>
                 ))}
               </TableBody>
