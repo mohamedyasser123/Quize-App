@@ -5,7 +5,7 @@ import { Check, ChevronDown, X } from "lucide-react";
 import toast from "react-hot-toast";
 
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import useStudents from "@/src/hooks/instractor/student/useStudent";
+import useStudents from "@/src/hooks/instractor/students/useStudent";
 import { Group, GroupFormData } from "@/src/types/instractor/group/group-type";
 
 interface AddEditGroupDialogProps {

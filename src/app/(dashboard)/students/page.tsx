@@ -2,13 +2,20 @@
 "use client";
 
 import {  Eye, Trash2 } from "lucide-react";
-import useStudents from "@/src/hooks/instractor/student/useStudent";
-import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
+import useStudents from "@/src/hooks/instractor/students/useStudent";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 import { useEffect, useState } from "react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import ConfirmDeleteDialog from "@/src/components/shared/DeleteConfirmation/DeleteConfirmation";
 import { deleteStudentApi } from "@/src/services/instractor/student/student-api";
-import useDeleteStudent from "@/src/hooks/instractor/student/useDeleteStudent";
+import useDeleteStudent from "@/src/hooks/instractor/students/useDeleteStudent";
 
 
 

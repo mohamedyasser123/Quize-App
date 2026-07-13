@@ -3,7 +3,7 @@
 
 import Image from "next/image";
 import { ArrowRight, ArrowRightCircle } from "lucide-react";
-import useStudents from '@/src/hooks/instractor/student/useStudent';
+import useStudents from "@/src/hooks/instractor/students/useStudent";
 import useinComingQuizzes from "@/src/hooks/instractor/quiz/useInComingQuizzes";
 
 

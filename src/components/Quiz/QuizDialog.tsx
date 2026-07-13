@@ -162,7 +162,7 @@ export default function QuizDialog({ open, onOpenChange }: Props) {
                   <select
                     {...register("questions_number")}
                     className="flex-1 px-3 h-full outline-none text-sm bg-transparent font-semibold text-[#2C1A11] cursor-pointer">
-                    <option value={1}>5</option>
+                    <option value={5}>5</option>
                     <option value={10}>10</option>
                     <option value={15}>15</option>
                     <option value={20}>20</option>
@@ -177,10 +177,10 @@ export default function QuizDialog({ open, onOpenChange }: Props) {
                   <select
                     {...register("score_per_question")}
                     className="flex-1 px-3 h-full outline-none text-sm bg-transparent font-semibold text-[#2C1A11] cursor-pointer">
-                    <option value={1}>5</option>
-                    <option value={2}>10</option>
-                    <option value={5}>15</option>
-                    <option value={10}>20</option>
+                    <option value={1}>1</option>
+                    <option value={2}>2</option>
+                    <option value={5}>5</option>
+                    <option value={10}>10</option>
                   </select>
                 </div>
               </div>
