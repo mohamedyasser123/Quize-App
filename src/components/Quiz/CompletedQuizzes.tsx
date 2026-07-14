@@ -63,7 +63,7 @@ export default function CompleteQuizzes() {
   return (
     <section className="mt-10 rounded-2xl">
       <h2 className="text-2xl font-bold mb-6 text-[#2C1A11]">
-        Completed Quizzes
+        {user?.role === "Student" ? "All Results" : "Completed Quizzes"}
       </h2>
 
       {isLoading && (
@@ -218,7 +218,7 @@ export default function CompleteQuizzes() {
                     Quiz
                   </TableHead>
                   <TableHead className="px-6 py-4 text-[#5C4636] font-bold">
-                    Description
+                    {user?.role === "Instructor" ? "Description" : "Group"}
                   </TableHead>
                   <TableHead className="px-6 py-4 text-[#5C4636] font-bold">
                     Code
@@ -232,6 +232,16 @@ export default function CompleteQuizzes() {
                   <TableHead className="px-6 py-4 text-[#5C4636] font-bold">
                     Schedule
                   </TableHead>
+                  {user?.role === "Student" && (
+                    <TableHead className="px-6 py-4 text-[#5C4636] font-bold">
+                      Participants
+                    </TableHead>
+                  )}
+                  {user?.role === "Student" && (
+                    <TableHead className="px-6 py-4 text-[#5C4636] font-bold">
+                      Score
+                    </TableHead>
+                  )}
                   {user?.role === "Instructor" && (
                     <TableHead className="px-6 py-4 text-center text-[#5C4636] font-bold">
                       Actions
@@ -250,7 +260,9 @@ export default function CompleteQuizzes() {
                     </TableCell>
 
                     <TableCell className="px-6 py-4 text-[#7A6453]">
-                      {quiz.description || "-"}
+                      {user?.role === "Instructor"
+                        ? quiz.description || "-"
+                        : quiz.group || "-"}
                     </TableCell>
 
                     <TableCell className="px-6 py-4">
@@ -282,6 +294,16 @@ export default function CompleteQuizzes() {
                         ? new Date(quiz.schadule).toLocaleDateString("en-GB")
                         : "-"}
                     </TableCell>
+                    {user?.role === "Student" && (
+                      <TableCell className="px-6 py-4 text-[#7A6453]">
+                        {quiz.participants}
+                      </TableCell>
+                    )}
+                    {user?.role === "Student" && (
+                      <TableCell className="px-6 py-4 font-bold text-[#2C1A11]">
+                        {quiz.questions_number * quiz.score_per_question} pts
+                      </TableCell>
+                    )}
 
                     {user?.role === "Instructor" && (
                       <TableCell className="px-6 py-4">
