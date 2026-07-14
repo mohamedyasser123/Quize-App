@@ -12,6 +12,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import useQuizResults from "@/src/hooks/instractor/result/useGetResult";
 import { AlertCircle, Clock } from "lucide-react";
+import CompletedQuizzes from "@/src/components/Quiz/CompletedQuizzes";
 
 import {
   Pagination,
@@ -22,6 +23,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { useAuth } from "@/src/context/AuthContext/AuthContext";
 
 export default function QuizResults() {
   const { results, isLoading } = useQuizResults();
@@ -53,6 +55,14 @@ export default function QuizResults() {
       setCurrentPage(page);
     }
   };
+
+    const { user } = useAuth();
+
+  const isStudent = user?.role === "Student";
+
+  if (isStudent) {
+    return <CompletedQuizzes />;
+  }
 
   return (
     <section className="mt-10 rounded-2xl">
