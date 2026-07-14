@@ -1,15 +1,14 @@
 "use client";
 
-import { deleteGroupApi } from "@/src/services/instractor/group/group-api";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
 interface UseDeleteGroupProps {
-  onGroupsChange: () => Promise<void>;
+  onDeleteGroup: (id: string) => Promise<void>;
 }
 
 export default function useDeleteGroup({
-  onGroupsChange,
+  onDeleteGroup,
 }: UseDeleteGroupProps) {
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -17,15 +16,17 @@ export default function useDeleteGroup({
     try {
       setIsDeleting(true);
 
-      await deleteGroupApi(id);
+      await onDeleteGroup(id);
 
-      await onGroupsChange();
+      toast.success("Group deleted successfully!");
+    } catch (error: any) {
+      toast.error(
+        error?.response?.data?.message ||
+          error?.message ||
+          "Failed to delete group."
+      );
 
-      toast.success("Group deleted successfully");
-    } catch (error) {
-      console.error("Error deleting group:", error);
-
-      toast.error("Failed to delete group");
+      console.error(error);
     } finally {
       setIsDeleting(false);
     }
