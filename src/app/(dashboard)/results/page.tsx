@@ -185,25 +185,40 @@ export default function QuizResults() {
                   return (
                     <TableRow
                       key={quiz._id}
-                      className="border-[#F4E3D4] hover:bg-[#FFF9F5] transition-colors"
-                    >
-                      <TableCell className="px-6 py-4 font-semibold text-[#2C1A11]">{quiz.title}</TableCell>
-                      <TableCell className="px-6 py-4 text-[#7A6453] max-w-[200px] truncate">{quiz.description || "-"}</TableCell>
+                      className="border-[#F4E3D4] hover:bg-[#FFF9F5] transition-colors">
+                      <TableCell className="px-6 py-4 font-semibold text-[#2C1A11]">
+                        {quiz.title}
+                      </TableCell>
+                      <TableCell className="px-6 py-4 text-[#7A6453] max-w-[200px] truncate">
+                        {quiz.description || "-"}
+                      </TableCell>
                       <TableCell className="px-6 py-4">
-                        <span className={`px-3 py-1 rounded-full text-xs font-bold border ${getDifficultyStyles(quiz.difficulty)}`}>
+                        <span
+                          className={`px-3 py-1 rounded-full text-xs font-bold border ${getDifficultyStyles(quiz.difficulty)}`}>
                           {quiz.difficulty?.toUpperCase()}
                         </span>
                       </TableCell>
-                      <TableCell className="px-6 py-4 font-mono text-xs text-[#5C4636]">{quiz.type}</TableCell>
+                      <TableCell className="px-6 py-4 font-mono text-xs text-[#5C4636]">
+                        {quiz.type}
+                      </TableCell>
                       <TableCell className="px-6 py-4">
-                        <span className={`px-3 py-1 rounded-full text-xs font-bold border ${
-                          quiz.status?.toLowerCase() === "open" ? "bg-[#E6F4EA] text-[#137333] border-[#CEEAD6]" : "bg-[#FCE8E6] text-[#C5221F] border-[#FAD2CF]"
-                        }`}>
+                        <span
+                          className={`px-3 py-1 rounded-full text-xs font-bold border ${
+                            quiz.status?.toLowerCase() === "open"
+                              ? "bg-[#E6F4EA] text-[#137333] border-[#CEEAD6]"
+                              : "bg-[#FCE8E6] text-[#C5221F] border-[#FAD2CF]"
+                          }`}>
                           {quiz.status?.toUpperCase()}
                         </span>
                       </TableCell>
-                      <TableCell className="px-6 py-4 text-[#7A6453] font-medium">{quiz.duration} mins</TableCell>
-                      <TableCell className="px-6 py-4 font-bold text-[#2C1A11]">{totalScore} pts</TableCell>
+                      <TableCell className="px-6 py-4 text-[#7A6453] font-medium">
+                        {quiz.duration} mins
+                      </TableCell>
+                      <TableCell className="px-6 py-4 font-bold text-[#2C1A11]">
+                        {(quiz.questions_number ?? 0) *
+                          (quiz.score_per_question ?? 0)}{" "}
+                        pts
+                      </TableCell>{" "}
                     </TableRow>
                   );
                 })}
