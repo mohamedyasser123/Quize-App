@@ -129,7 +129,7 @@ export default function QuestionDetailsDialog({
             onClick={() => onOpenChange(false)}
             className="bg-[#0B1220] hover:bg-opacity-90 text-white font-semibold px-5 py-2.5 rounded-xl text-sm transition-all"
           >
-            Close Window
+            Close
           </button>
         </div>
       </DialogContent>

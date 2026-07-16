@@ -99,17 +99,24 @@ export default function GroupFormModal({
             </span>
 
             <select
-              className="w-full h-12 px-4 pr-10 appearance-none outline-none bg-white text-sm text-[#2C1A11]"
+              disabled={students.length === 0}
+              className="w-full h-12 px-4 pr-10 appearance-none outline-none bg-white text-sm text-[#2C1A11] disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed"
               defaultValue="">
-              <option value="" disabled>
-                Select Student
-              </option>
+              {students.length === 0 ? (
+                <option>No students found </option>
+              ) : (
+                <>
+                  <option value="" disabled>
+                    Select Student
+                  </option>
 
-              {students.map((student) => (
-                <option key={student._id} value={student._id}>
-                  {student.first_name} {student.last_name}
-                </option>
-              ))}
+                  {students.map((student) => (
+                    <option key={student._id} value={student._id}>
+                      {student.first_name} {student.last_name}
+                    </option>
+                  ))}
+                </>
+              )}
             </select>
 
             <ChevronDown

@@ -25,7 +25,6 @@ export default function CompleteQuizzes() {
   const [open, setOpen] = useState(false);
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [openDelete, setOpenDelete] = useState(false);
-  const { user } = useAuth();
   const handleView = (id: string) => {
     setOpen(true);
     getQuiz(id);
@@ -48,7 +47,7 @@ export default function CompleteQuizzes() {
     setOpenDelete(false);
     setDeleteId(null);
   };
-
+  const { user } = useAuth();
   const getDifficultyStyles = (difficulty: string = "") => {
     switch (difficulty.toLowerCase()) {
       case "easy":
@@ -63,7 +62,7 @@ export default function CompleteQuizzes() {
   return (
     <section className="mt-10 rounded-2xl">
       <h2 className="text-2xl font-bold mb-6 text-[#2C1A11]">
-        {user?.role === "Student" ? "All Results" : "Completed Quizzes"}
+        Completed Quizzes
       </h2>
 
       {isLoading && (
@@ -217,34 +216,30 @@ export default function CompleteQuizzes() {
                   <TableHead className="px-6 py-4 text-[#5C4636] font-bold">
                     Quiz
                   </TableHead>
+
                   <TableHead className="px-6 py-4 text-[#5C4636] font-bold">
-                    {user?.role === "Instructor" ? "Description" : "Group"}
+                    Description
                   </TableHead>
+
                   <TableHead className="px-6 py-4 text-[#5C4636] font-bold">
                     Code
                   </TableHead>
+
                   <TableHead className="px-6 py-4 text-[#5C4636] font-bold">
                     Difficulty
                   </TableHead>
+
                   <TableHead className="px-6 py-4 text-[#5C4636] font-bold">
                     Status
                   </TableHead>
+
                   <TableHead className="px-6 py-4 text-[#5C4636] font-bold">
                     Schedule
                   </TableHead>
-                  {user?.role === "Student" && (
-                    <TableHead className="px-6 py-4 text-[#5C4636] font-bold">
-                      Participants
-                    </TableHead>
-                  )}
-                  {user?.role === "Student" && (
-                    <TableHead className="px-6 py-4 text-[#5C4636] font-bold">
-                      Score
-                    </TableHead>
-                  )}
+
                   {user?.role === "Instructor" && (
-                    <TableHead className="px-6 py-4 text-center text-[#5C4636] font-bold">
-                      Actions
+                    <TableHead className="px-6 py-4 text-[#5C4636] font-bold text-center">
+                      Action
                     </TableHead>
                   )}
                 </TableRow>
@@ -260,9 +255,7 @@ export default function CompleteQuizzes() {
                     </TableCell>
 
                     <TableCell className="px-6 py-4 text-[#7A6453]">
-                      {user?.role === "Instructor"
-                        ? quiz.description || "-"
-                        : quiz.group || "-"}
+                      {quiz.description || "-"}
                     </TableCell>
 
                     <TableCell className="px-6 py-4">
@@ -291,19 +284,8 @@ export default function CompleteQuizzes() {
 
                     <TableCell className="px-6 py-4 text-[#7A6453]">
                       {quiz.schadule
-                        ? new Date(quiz.schadule).toLocaleDateString("en-GB")
-                        : "-"}
+                        ? new Date(quiz.schadule).toLocaleDateString("en-GB"): "-"}
                     </TableCell>
-                    {user?.role === "Student" && (
-                      <TableCell className="px-6 py-4 text-[#7A6453]">
-                        {quiz.participants}
-                      </TableCell>
-                    )}
-                    {user?.role === "Student" && (
-                      <TableCell className="px-6 py-4 font-bold text-[#2C1A11]">
-                        {quiz.questions_number * quiz.score_per_question} pts
-                      </TableCell>
-                    )}
 
                     {user?.role === "Instructor" && (
                       <TableCell className="px-6 py-4">

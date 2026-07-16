@@ -56,13 +56,7 @@ export default function QuizResults() {
     }
   };
 
-    const { user } = useAuth();
 
-  const isStudent = user?.role === "Student";
-
-  if (isStudent) {
-    return <CompletedQuizzes />;
-  }
 
   return (
     <section className="mt-10 rounded-2xl">
@@ -84,7 +78,6 @@ export default function QuizResults() {
               </div>
             ))}
           </div>
-
           <div className="hidden md:block rounded-xl border border-[#EAD5C3] bg-white overflow-hidden shadow-sm">
             <Table>
               <TableHeader className="bg-[#FAF2EC]">

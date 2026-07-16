@@ -309,7 +309,7 @@ const handleConfirmDelete = async () => {
           onClick={() => setIsViewOpen(false)}
           className="w-full py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold rounded-xl transition-colors active:scale-[0.98]"
         >
-          Close Profile
+          Close 
         </button>
       </div>
     </div>
