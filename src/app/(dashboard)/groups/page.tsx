@@ -124,7 +124,6 @@ export default function GroupsPage() {
         )}
       </div>
 
-      {/* FORM MODAL  */}
       <GroupFormModal
         isOpen={isOpen}
         onClose={() => {
